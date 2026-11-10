@@ -1,7 +1,5 @@
 #include "intro.h"
-
-// Forward declaration
-extern void back_to_main(void);
+#include "app_select.h"
 
 lv_obj_t *screen_intro = NULL;
 
@@ -41,7 +39,7 @@ static void intro_timer_cb(lv_timer_t *timer)
     if (intro_timer != NULL) {
         lv_timer_pause(intro_timer);
     }
-    back_to_main();
+    open_app_select();
 }
 
 void build_intro_screen(void)

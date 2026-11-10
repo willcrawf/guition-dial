@@ -13,6 +13,7 @@
 #include "ui_1p.h"
 #include "ui_mp.h"
 #include "ui_player_menu.h"
+#include "app_select.h"
 
 // Forward declarations for cross-module calls
 extern void reset_all_values(void);
@@ -651,9 +652,21 @@ void build_quad_menus(void)
         {"Settings", event_quad_screen_settings, true, LV_EVENT_CLICKED},
         {"Game\nMode", event_general_game_mode, true, LV_EVENT_CLICKED},
         {"Tools",             event_quad_tools, true, LV_EVENT_CLICKED},
-        {"Reset\n(Hold)", event_general_reset, true, LV_EVENT_LONG_PRESSED},
+        {"Apps", event_open_app_select, true, LV_EVENT_CLICKED},
     };
     build_quad_screen(&screen_quad_menu, main_items);
+
+    /* Keep game reset available: long-press the Apps quadrant. */
+    {
+        lv_obj_t *apps_btn = lv_obj_get_child(screen_quad_menu, 3);
+        if (apps_btn != NULL) {
+            lv_obj_add_event_cb(apps_btn, event_general_reset, LV_EVENT_LONG_PRESSED, NULL);
+            lv_obj_t *apps_lbl = lv_obj_get_child(apps_btn, 0);
+            if (apps_lbl != NULL) {
+                lv_label_set_text(apps_lbl, "Apps\n(Hold=Reset)");
+            }
+        }
+    }
 
     quad_item_t tools_items[4] = {
         {"Dice",        event_tool_dice, true, LV_EVENT_CLICKED},

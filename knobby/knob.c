@@ -13,6 +13,8 @@
 #include "src/damage_log.h"
 #include "src/rename.h"
 #include "src/mana.h"
+#include "src/app_select.h"
+#include "src/demo_app.h"
 
 // ---------- swipe state ----------
 static lv_obj_t *previous_screen = NULL;
@@ -105,7 +107,8 @@ knob_swipe_direction_t knob_classify_swipe_direction(lv_obj_t *screen,
     int abs_dx = dx >= 0 ? dx : -dx;
     int abs_dy = dy >= 0 ? dy : -dy;
 
-    if (screen == NULL || screen == screen_intro) return KNOB_SWIPE_NONE;
+    if (screen == NULL || screen == screen_intro || screen == screen_app_select)
+        return KNOB_SWIPE_NONE;
 
     if (is_player_screen(screen)) {
         if (start_x <= KNOB_SWIPE_LEFT_EDGE_ZONE &&
@@ -356,6 +359,8 @@ static void handle_back_navigation(lv_obj_t *screen)
     } else if (screen == screen_mana) {
         mana_discard_preview();
         lv_scr_load(screen_tools_menu);
+    } else if (screen == screen_demo_app) {
+        open_app_select();
     }
 }
 
@@ -424,6 +429,8 @@ void knob_gui(void)
     lv_refr_now(NULL);
     scr_display_on();
     brightness_apply();
+    build_app_select_screen();
+    build_demo_app_screen();
     build_dice_screen();
     build_main_screen();
     build_multiplayer_screen();
@@ -535,6 +542,11 @@ static void handle_knob_event(knob_event_t k)
     {
         if (k == KNOB_LEFT)      change_mana_value(-1);
         else if (k == KNOB_RIGHT) change_mana_value(+1);
+    }
+    else if (lv_scr_act() == screen_demo_app)
+    {
+        if (k == KNOB_LEFT)      change_demo_value(-1);
+        else if (k == KNOB_RIGHT) change_demo_value(+1);
     }
     else if (k == KNOB_LEFT || k == KNOB_RIGHT)
     {
