@@ -1,113 +1,75 @@
-# 🟢 Knobby Life Counter 
+# Knobby Platform
 
-This is a non-commercial hobby project. Contributors are not associated with any company.
+Multi-app firmware for GUITION JC3636K518 / JC3636K518C knobs, based on [Knobby](https://github.com/knobby-mtg/knobby-mtg-life-counter).
 
-> [!Note]
-> Full disclosure: this was programmed with the help of generative AI
+Boot flow: **Intro → App Select → apps** (Knobby life counter, Demo, and future apps).
 
-## ✨ Features
+This is **not** a drop-in replacement for upstream Knobby releases. Upstream README: [`docs/UPSTREAM_KNOBBY.md`](docs/UPSTREAM_KNOBBY.md). Companion Windows USB notes (docs/scripts only): [willcrawf/knobby-guition-notes](https://github.com/willcrawf/knobby-guition-notes).
 
-Features/intended use:
-- Life counter for Magic: the Gathering or other TCGs
-- Life tracking from -999 to 999 with delta being shown as preview for 4 seconds
-- Support for 1 to 4 players
-- Commander damage for up to 4 players, damage to all players
-- Game timer (hours:minutes) and turn counter
-- Brightness and battery guesstimate (WIP)
-- D20 dice roll
-- Event log
+## Layout
 
-## 🛠️ Installation
+| Path | Purpose |
+|------|---------|
+| `knobby/` | Arduino sketch (device firmware) |
+| `knobby/src/apps/` | App Select launcher + Demo (+ future apps) |
+| `knobby/src/` | Shared UI / life-counter modules (Knobby app) |
+| `scripts/` | Windows build / upload / port helpers |
+| `hw-test/` | Manufacturer-based dial/touch bring-up sketch |
+| `docs/hardware/` | Guition pin evidence, flash mode, comparison notes |
+| `recovery/` | Factory restore pointers (no dump binaries in git) |
+| `sim/`, `web/` | Upstream simulator / web bits |
 
-Go to https://knobby-mtg.github.io/knobby-mtg-life-counter/ to install the latest release with a compatible browser.
+## Apps
 
-> [!Warning]
-> Installation is at your own risk, we take no responsiblity for failed installations or devices.
+| Launcher label | Module | Notes |
+|----------------|--------|-------|
+| Knobby | life-counter UI in `knobby/src/` | Opened via `back_to_main()` |
+| Demo | `knobby/src/apps/demo_app.*` | Dial ±1, tap counter, Apps back button |
 
-## 🚀 Getting Started
+Add new apps under `knobby/src/apps/`, register them in `app_select.c`, and wire knob input in `knobby/knob.c` when needed.
 
-Swipe inward from any edge on a player screen to open the menu, and swipe down or in from the right edge to close a menu or go back.
+## Windows build / flash
 
-For how-to guides and additional documentation, see the [wiki](https://github.com/knobby-mtg/knobby-mtg-life-counter/wiki).
+```powershell
+cd C:\Code\knobby-platform
 
-## ⚙️ Hardware
+# One-time: ESP32 core + Knobby-pinned libraries
+.\scripts\install-deps.ps1
 
-This is the hardware used: JC3636K518 with battery, you can find it on AliExpress.
+# Compile firmware (App Select + apps)
+.\scripts\build-knobby.ps1
 
-Specifications:
-- 1.8 inch display, resolution 360*360
-- Display driver: ST77916
-- Touch: CST816
-- CPU: 240 MHz
-- Platform: ESP32
+# Identify the ESP32-S3 port (not the secondary ESP32)
+.\scripts\list-ports.ps1
 
-These boards may also be supported depending on hardware revision:
-* https://www.waveshare.com/wiki/ESP32-S3-Knob-Touch-LCD-1.8
-* The JC3636K718 board varient is also unofficially supported (currently experimental).
-
-## 🔧 Building
-
-All build commands run from the repo root:
-
-```bash
-# First time: install Arduino cores and libraries
-make firmware-deps
-
-# Compile firmware for ESP32-S3
-make firmware
-
-# Flash to device (replace port with yours from `arduino-cli board list`)
-make firmware-flash PORT=/dev/ttyACM0
+# Flash (confirms ESP32-S3 unless -SkipChipConfirm)
+.\scripts\upload-knobby.ps1 -Port COMx
+# or: .\scripts\upload-knobby.ps1 -Port COMx -Build
 ```
 
-## 📸 Screenshots
+Optional manufacturer HW test:
 
-A headless simulator renders the UI without hardware, producing PNG screenshots with a circular display mask matching the physical device.
-
-```bash
-# Single screenshot
-make screenshot                                    # default main screen
-make screenshot ARGS="--screen 4p --life 200,30,40,15 --names Alice,Bob,Charlie,Dave"
-
-# Full test matrix (308 screenshots + index.html gallery)
-make generate-matrix
+```powershell
+.\scripts\build-hw-test.ps1
 ```
 
-Run `sim/knobby_sim --help` for all CLI options. See [sim/screenshots/README.md](sim/screenshots/README.md) for details.
+### Flash timing
 
-## 🕹️ Simulators
+Scripts default to `FlashMode=qio120`. If the unit fails to boot after a successful upload:
 
-You can test the Knobby interface on your PC or in a browser without hardware. 
-Both **`make`** commands and **`./*.sh`** scripts are provided for convenience.
-
-### Web Simulator (WASM) 🌐
-Runs the **actual C firmware** compiled to WebAssembly directly in the browser.
-- **Run server:** `make sim-web-run` (or `./sim-web.sh`)
-- **Build from source:** `make sim-web-build` (or `./compile.sh`)
-
-*Open [http://localhost:8000/sim/index.html](http://localhost:8000/sim/index.html) after starting the server.*
-
-> [!Note]
-> A pre-compiled `knobby_web.wasm` is already included. You only need to install Emscripten if you want to recompile from source.
-
-#### Installing Emscripten (for recompilation)
-```sh
-git clone https://github.com/emscripten-core/emsdk.git
-cd emsdk
-./emsdk install latest
-./emsdk activate latest
-source ./emsdk_env.sh   # or emsdk_env.bat on Windows
+```powershell
+$env:KNOBBY_FLASH_MODE = "qio"   # upstream 80 MHz
+.\scripts\build-knobby.ps1
+.\scripts\upload-knobby.ps1 -Port COMx
 ```
 
-### PC Simulator (Native) 💻
-A native application for local interactive development.
-- **Run:** `make sim` (or `./sim.sh`)
+Details: [`docs/hardware/FLASH_MODE.md`](docs/hardware/FLASH_MODE.md).
 
-**Controls:**
-- **Touch:** Left Click
-- **Knob:** Mouse Wheel / Left & Right Arrows
-- **Swipe:** Up & Down Arrows | L & R keys
+### Tooling
 
-## 🧑‍🤝‍🧑 Contributing
+- Prefer `arduino-cli` on `PATH`, or set `$env:ARDUINO_CLI`, or place `tools\arduino-cli.exe` (gitignored).
+- Library pins match upstream: `lvgl@8.3.11`, `ESP32_Display_Panel@1.0.0`, `ESP32_IO_Expander@1.0.1`, `esp-lib-utils@0.1.2`.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+## Linux / macOS (upstream Makefile)
+
+Upstream `make` / `./compile.sh` / sim targets still live at the repo root. Prefer `scripts\` on Windows for Guition flash workflow.

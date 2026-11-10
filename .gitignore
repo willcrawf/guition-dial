@@ -79,3 +79,12 @@ sim/knobby_web.wasm
 # Machine-specific config (use config.local.sh.example as template)
 config.local.sh
 emsdk/
+
+# Local toolchain binaries (install separately; keep tools/ out of git)
+tools/
+tools/*.exe
+
+# Factory full-flash dumps / serial captures (keep docs; never commit dumps)
+recovery/backups/
+*.fullflash.bin
+factory-*.bin

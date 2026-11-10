@@ -1,7 +1,7 @@
 #ifndef _DEMO_APP_H
 #define _DEMO_APP_H
 
-#include "types.h"
+#include "../types.h"
 
 extern lv_obj_t *screen_demo_app;
 

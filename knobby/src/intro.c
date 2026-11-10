@@ -1,5 +1,5 @@
 #include "intro.h"
-#include "app_select.h"
+#include "apps/app_select.h"
 
 lv_obj_t *screen_intro = NULL;
 

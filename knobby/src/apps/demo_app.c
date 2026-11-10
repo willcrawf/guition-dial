@@ -1,5 +1,6 @@
 #include "demo_app.h"
 #include "app_select.h"
+#include "../settings.h"
 
 // ---------- state ----------
 lv_obj_t *screen_demo_app = NULL;

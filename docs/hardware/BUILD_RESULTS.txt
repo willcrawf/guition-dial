@@ -1,0 +1,14 @@
+﻿Knobby (FlashMode=qio120, PartitionScheme=custom):
+  Sketch uses 1319502 bytes (7%) of program storage space. Maximum is 16777216 bytes.
+  Global variables use 186204 bytes (56%) of dynamic memory, leaving 141476 bytes for local variables.
+
+HW-test / ST77916_LVGL_DEMO (FlashMode=qio120, PartitionScheme=huge_app):
+  Sketch uses 628155 bytes (19%) of program storage space. Maximum is 3145728 bytes.
+  Global variables use 75416 bytes (23%) of dynamic memory, leaving 252264 bytes for local variables.
+
+Artifacts:
+- C:\Code\mtg-commander-knob\build\knobby\
+- C:\Code\mtg-commander-knob\build\hw-test\
+
+No device was flashed. Hardware validation: not performed.
+ESP32 Arduino core installed: 3.3.12

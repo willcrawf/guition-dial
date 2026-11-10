@@ -13,7 +13,7 @@
 #include "ui_1p.h"
 #include "ui_mp.h"
 #include "ui_player_menu.h"
-#include "app_select.h"
+#include "apps/app_select.h"
 
 // Forward declarations for cross-module calls
 extern void reset_all_values(void);

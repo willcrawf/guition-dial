@@ -13,8 +13,8 @@
 #include "src/damage_log.h"
 #include "src/rename.h"
 #include "src/mana.h"
-#include "src/app_select.h"
-#include "src/demo_app.h"
+#include "src/apps/app_select.h"
+#include "src/apps/demo_app.h"
 
 // ---------- swipe state ----------
 static lv_obj_t *previous_screen = NULL;

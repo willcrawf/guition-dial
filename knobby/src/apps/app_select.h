@@ -1,7 +1,7 @@
 #ifndef _APP_SELECT_H
 #define _APP_SELECT_H
 
-#include "types.h"
+#include "../types.h"
 
 extern lv_obj_t *screen_app_select;
 

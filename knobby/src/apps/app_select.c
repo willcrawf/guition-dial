@@ -1,7 +1,7 @@
 #include "app_select.h"
 #include "demo_app.h"
-#include "settings.h"
-#include "ui_1p.h"
+#include "../settings.h"
+#include "../ui_1p.h"
 
 // ---------- screens ----------
 lv_obj_t *screen_app_select = NULL;
