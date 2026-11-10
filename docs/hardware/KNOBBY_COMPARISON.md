@@ -1,6 +1,6 @@
 # Knobby vs manufacturer evidence (Phase 2)
 
-Knobby tree used: `C:\Code\knobby-platform` (also junctioned at `(repo root)`).
+Firmware tree used: `C:\Code\guition-dial` (Arduino sketch at `firmware/knobby/`).
 
 ## Comparison table
 

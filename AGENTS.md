@@ -10,8 +10,9 @@ Supported assistants
 
 Repo quick pointers
 - Read the high-level project info first: [README.md](README.md)
-- Main firmware entry: [knobby/knobby.ino](knobby/knobby.ino)
-- C sources and headers: [knobby/](knobby/)
+- Main firmware entry: [firmware/knobby/knobby.ino](firmware/knobby/knobby.ino)
+- C sources and headers: [firmware/knobby/](firmware/knobby/)
+- **Knobby** = life-counter app only (App Select tile); platform name is Guition Dial
 
 General rules for all agents
 - Always open and reference the files linked in “Repo quick pointers” before proposing changes.
@@ -36,7 +37,7 @@ Task request template (user → agent)
 - Tests: how to verify (compile, manual device steps)
 
 Example user prompt to the agent
-- "Fix the display rotation issue: files I checked: [knobby/scr_st77916.h](knobby/scr_st77916.h), [knobby/knobby.ino](knobby/knobby.ino). Acceptance: project compiles and UI renders upright. Propose minimal change and show compile steps."
+- "Fix the display rotation issue: files I checked: [firmware/knobby/scr_st77916.h](firmware/knobby/scr_st77916.h), [firmware/knobby/knobby.ino](firmware/knobby/knobby.ino). Acceptance: project compiles and UI renders upright. Propose minimal change and show compile steps."
 
 Deliverables for code tasks
 - Short plan (2–4 steps)

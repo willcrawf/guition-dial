@@ -33,7 +33,7 @@ Symptoms that often implicate flash timing / image config (among other causes): 
 **Fall back to upstream Knobby’s flash setting:**
 
 ```powershell
-cd C:\Code\knobby-platform
+cd C:\Code\guition-dial
 $env:KNOBBY_FLASH_MODE = "qio"   # QIO 80 MHz — matches Knobby Makefile/CI
 .\scripts\build-knobby.ps1
 # then upload to the confirmed ESP32-S3 port (when you are ready to flash)

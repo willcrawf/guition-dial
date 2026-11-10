@@ -1,4 +1,4 @@
-# Knobby MTG Life Counter
+# Guition Dial (multi-app platform; Knobby = life-counter app)
 # Top-level Makefile for firmware and simulator targets
 
 -include config.mk
@@ -15,7 +15,7 @@ EXTRA_URLS  := https://espressif.github.io/arduino-esp32/package_esp32_index.jso
         screenshot generate-matrix sim sim-gui sim-clean clean
 
 help:
-	@echo "Knobby MTG Life Counter"
+	@echo "Guition Dial"
 	@echo ""
 	@echo "Firmware (via arduino-cli):"
 	@echo "  make firmware-deps                 - Install Arduino cores and libraries"
@@ -58,7 +58,7 @@ firmware-deps: check-arduino
 	$(ARDUINO_CLI) lib install esp-lib-utils@0.1.2
 
 firmware: check-arduino
-	$(ARDUINO_CLI) compile --fqbn "$(FQBN)" knobby
+	$(ARDUINO_CLI) compile --fqbn "$(FQBN)" firmware/knobby
 
 firmware-flash: check-arduino
 	@if [ -z "$(PORT)" ]; then \
@@ -67,7 +67,7 @@ firmware-flash: check-arduino
 		$(ARDUINO_CLI) board list; \
 		exit 1; \
 	fi
-	$(ARDUINO_CLI) upload --fqbn "$(FQBN)" -p $(PORT) knobby
+	$(ARDUINO_CLI) upload --fqbn "$(FQBN)" -p $(PORT) firmware/knobby
 
 # ---- Simulator targets (delegate to sim/) ----
 

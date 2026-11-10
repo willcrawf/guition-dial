@@ -1,6 +1,8 @@
-# Knobby Platform
+# Guition Dial
 
-Multi-app firmware for GUITION JC3636K518 / JC3636K518C knobs, based on [Knobby](https://github.com/knobby-mtg/knobby-mtg-life-counter).
+Multi-app firmware platform for GUITION JC3636K518 / JC3636K518C knobs, based on upstream [Knobby](https://github.com/knobby-mtg/knobby-mtg-life-counter).
+
+**Naming:** **Knobby** is only the MTG life-counter *app* (App Select tile). This repo/platform is **Guition Dial**.
 
 Boot flow: **Intro → App Select → apps** (Knobby life counter, Demo, and future apps).
 
@@ -10,12 +12,12 @@ This is **not** a drop-in replacement for upstream Knobby releases. Upstream REA
 
 | Path | Purpose |
 |------|---------|
-| `knobby/` | Arduino sketch (device firmware) |
-| `knobby/src/apps/` | App Select launcher + Demo (+ future apps) |
-| `knobby/src/` | Shared UI / life-counter modules (Knobby app) |
+| `firmware/knobby/` | Arduino sketch (device firmware; sketch folder keeps upstream name) |
+| `firmware/knobby/src/apps/` | App Select launcher + Demo (+ future apps) |
+| `firmware/knobby/src/` | Shared UI / life-counter modules (Knobby app) |
 | `scripts/` | Windows build / upload / port helpers |
+| `docs/` | Upstream notes + Guition hardware evidence |
 | `hw-test/` | Manufacturer-based dial/touch bring-up sketch |
-| `docs/hardware/` | Guition pin evidence, flash mode, comparison notes |
 | `recovery/` | Factory restore pointers (no dump binaries in git) |
 | `sim/`, `web/` | Upstream simulator / web bits |
 
@@ -23,15 +25,15 @@ This is **not** a drop-in replacement for upstream Knobby releases. Upstream REA
 
 | Launcher label | Module | Notes |
 |----------------|--------|-------|
-| Knobby | life-counter UI in `knobby/src/` | Opened via `back_to_main()` |
-| Demo | `knobby/src/apps/demo_app.*` | Dial ±1, tap counter, Apps back button |
+| Knobby | life-counter UI in `firmware/knobby/src/` | Opened via `back_to_main()` |
+| Demo | `firmware/knobby/src/apps/demo_app.*` | Dial ±1, tap counter, Apps back button |
 
-Add new apps under `knobby/src/apps/`, register them in `app_select.c`, and wire knob input in `knobby/knob.c` when needed.
+Add new apps under `firmware/knobby/src/apps/`, register them in `app_select.c`, and wire knob input in `firmware/knobby/knob.c` when needed.
 
 ## Windows build / flash
 
 ```powershell
-cd C:\Code\knobby-platform
+cd C:\Code\guition-dial
 
 # One-time: ESP32 core + Knobby-pinned libraries
 .\scripts\install-deps.ps1

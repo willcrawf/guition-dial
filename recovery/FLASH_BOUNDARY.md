@@ -20,11 +20,11 @@ This project intentionally **does not** flash, erase, or browser-install firmwar
 ## Upload commands (templates — parameters TBD on device)
 
 ```powershell
-cd C:\Code\knobby-platform
+cd C:\Code\guition-dial
 . .\scripts\env.ps1
 
 # After build-knobby.ps1 succeeded and PORT is the S3 port:
-# & $ArduinoCli upload --fqbn $KnobbyFqbn -p COMx (Join-Path $KnobbyRoot 'knobby')
+# & $ArduinoCli upload --fqbn $KnobbyFqbn -p COMx $FirmwareSketch
 
 # After build-hw-test.ps1:
 # & $ArduinoCli upload --fqbn $HwTestFqbn -p COMx $HwTestSketch

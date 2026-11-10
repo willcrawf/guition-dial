@@ -49,12 +49,12 @@ jobs:
 
       - name: Compile with arduino-cli
         run: |
-          arduino-cli compile --fqbn "esp32:esp32:esp32s3:FlashSize=16M,PSRAM=opi,USBMode=hwcdc,CDCOnBoot=cdc,FlashMode=qio,PartitionScheme=custom" --export-binaries knobby
+          arduino-cli compile --fqbn "esp32:esp32:esp32s3:FlashSize=16M,PSRAM=opi,USBMode=hwcdc,CDCOnBoot=cdc,FlashMode=qio,PartitionScheme=custom" --export-binaries firmware/knobby
 
       - name: Prepare Web Site
         run: |
           # Copy exported binaries into the static web directory
-          cp knobby/build/esp32.esp32.esp32s3/*.bin web/
+          cp firmware/knobby/build/esp32.esp32.esp32s3/*.bin web/
           # Update version in manifest.json to match the tag
           sed -i "s/\"latest\"/\"${{ github.ref_name }}\"/g" web/manifest.json
 

@@ -2,7 +2,7 @@
 . "$PSScriptRoot\env.ps1"
 Assert-ArduinoCli | Out-Null
 
-$sketch = Join-Path $KnobbyRoot "knobby"
+$sketch = $FirmwareSketch
 if (-not (Test-Path $sketch)) {
   throw "Sketch missing: $sketch"
 }

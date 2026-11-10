@@ -9,4 +9,6 @@ Multi-app modules launched from the App Select shell.
 
 Life-counter UI (1P / MP / tools / settings) stays in the parent `src/` tree — it is the **Knobby** app entry from the launcher (`back_to_main()`), not a separate folder yet.
 
-Add new apps here as `*_app.c` / `*_app.h`, register them in `app_select.c`, and wire input in `knobby/knob.c` when needed.
+Add new apps here as `*_app.c` / `*_app.h`, register them in `app_select.c`, and wire input in `firmware/knobby/knob.c` when needed.
+
+**Knobby** is the life-counter app label in App Select — not the platform name (Guition Dial).

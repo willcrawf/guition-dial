@@ -15,8 +15,9 @@ if ($env:ARDUINO_CLI -and (Test-Path $env:ARDUINO_CLI)) {
   $ArduinoCli = if ($cmd) { $cmd.Source } else { $null }
 }
 
-# Firmware lives in this repo (Arduino sketch at knobby/).
+# Platform root. Arduino sketch lives at firmware/knobby/ (Knobby = life-counter app name).
 $KnobbyRoot = $ProjectRoot
+$FirmwareSketch = Join-Path $ProjectRoot "firmware\knobby"
 $HwTestSketch = Join-Path $ProjectRoot "hw-test\ST77916_LVGL_DEMO"
 $ManufacturerRoot = "C:\Users\WillCrawford\Downloads\JC3636K518CN_knob_EN\JC3636K518CN_knob_EN"
 $ManufacturerLibs = Join-Path $ManufacturerRoot "2-Program Example\Demo_Arduino\Library"

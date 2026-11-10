@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../knobby/lv_conf.h"
+#include "../firmware/knobby/lv_conf.h"
 
 /* More memory on desktop — the 96KB pool can be tight for all screens */
 #undef LV_MEM_SIZE

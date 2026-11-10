@@ -12,7 +12,7 @@ param(
 . "$PSScriptRoot\env.ps1"
 Assert-ArduinoCli | Out-Null
 
-$sketch = Join-Path $KnobbyRoot "knobby"
+$sketch = $FirmwareSketch
 if (-not $BuildPath) {
   $BuildPath = Join-Path $ProjectRoot "build\knobby"
 }

@@ -9,7 +9,7 @@ LLVM_BIN  ?=
 LVGL_PATH ?= $(HOME)/Arduino/libraries/lvgl
 PYTHON    ?= python3
 
-KNOBBY    := ../knobby
+KNOBBY    := ../firmware/knobby
 BUILD     := build
 BIN       := knobby_sim
 

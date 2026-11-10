@@ -1,6 +1,6 @@
 ## Third-Party Notices
 
-This repository includes a generated icon font subset in [knobby/mana_counter_icons_16.c](knobby/mana_counter_icons_16.c).
+This repository includes a generated icon font subset in [firmware/knobby/src/fonts/mana_counter_icons_16.c](firmware/knobby/src/fonts/mana_counter_icons_16.c).
 
 Source:
 - Mana by Andrew Gioia: https://github.com/andrewgioia/mana
